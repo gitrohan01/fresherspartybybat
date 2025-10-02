@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,14 +113,28 @@
     <button type="submit">Submit My Shayari</button>
   </form>
 
-  <!-- Hidden iframe trick (avoids redirect to Google Forms thank you page) -->
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
+  <!-- Hidden iframe trick -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
   <!-- Back to Home -->
   <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
 
   <script>
     let submitted = false;
+    const form = document.querySelector('form');
+    const iframe = document.getElementById('hidden_iframe');
+
+    form.addEventListener('submit', () => {
+      submitted = true;
+    });
+
+    iframe.addEventListener('load', () => {
+      if(submitted) {
+        submitted = false;
+        alert('✅ Your Shayari was submitted — thanks!');
+        window.location.href = 'index.html'; // Redirect to main page
+      }
+    });
   </script>
 
 </body>
