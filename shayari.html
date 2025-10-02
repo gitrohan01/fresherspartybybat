@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your Shayari - Batman Freshers Night</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #000000, #111111);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      color: yellow;
+      text-shadow: 2px 2px 10px black;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background: rgba(30, 30, 30, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px yellow;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: yellow;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    button {
+      background: yellow;
+      color: black;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: auto;
+    }
+
+    button:hover {
+      background: orange;
+      transform: scale(1.1);
+    }
+
+    .back-link {
+      margin-top: 20px;
+      display: inline-block;
+      color: yellow;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-link:hover {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🦇 Share Your Shayari 🖋️</h1>
+  <p>Because even Gotham loves poetry...</p>
+
+  <!-- Google Form Action -->
+  <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSePK9qWpuEGH-PobHqf3SMDWzEvi3cmz3cBl3qlFigJJEpjCQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+    
+    <!-- Name Field -->
+    <label for="name">Your Name</label>
+    <input type="text" name="entry.1139423200" id="name" placeholder="Bruce Wayne?" required>
+    
+    <!-- Shayari Field -->
+    <label for="shayari">Your Shayari</label>
+    <textarea name="entry.501945757" id="shayari" placeholder="Type your magical words..." required></textarea>
+    
+    <!-- Gmail Field -->
+    <label for="gmail">Your Gmail</label>
+    <input type="email" name="entry.1033434279" id="gmail" placeholder="example@gmail.com" required>
+    
+    <!-- Submit -->
+    <button type="submit">Submit My Shayari</button>
+  </form>
+
+  <!-- Hidden iframe trick (avoids redirect to Google Forms thank you page) -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <!-- Back to Home -->
+  <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
+
+  <script>
+    let submitted = false;
+  </script>
+
+</body>
+</html>
