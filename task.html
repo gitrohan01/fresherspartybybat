@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign a Task - Batman Freshers Night</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #000000, #111111);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: yellow;
+      text-shadow: 2px 2px 10px black;
+      margin-bottom: 20px;
+    }
+    form {
+      background: rgba(30,30,30,0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px yellow;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: yellow;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      outline: none;
+    }
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+    button {
+      background: yellow;
+      color: black;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: auto;
+    }
+    button:hover {
+      background: orange;
+      transform: scale(1.1);
+    }
+    .back-link {
+      margin-top: 20px;
+      display: inline-block;
+      color: yellow;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .back-link:hover {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🦇 Assign a Task 📝</h1>
+  <p>Stay anonymous or reveal your identity — let Gotham know your secret missions!</p>
+
+  <!-- Google Form Action -->
+  <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScfwQ0-1KTSAt1c_jbQBRLAHDGo5vsn3ta8lTTjI7VqWE8WCQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+    
+    <!-- Name Field -->
+    <label for="name">Your Name (optional)</label>
+    <input type="text" name="entry.231234646" id="name" placeholder="Bruce Wayne">
+    
+    <!-- Gmail Field -->
+    <label for="gmail">Your Gmail (optional)</label>
+    <input type="email" name="entry.1350250307" id="gmail" placeholder="example@gmail.com">
+    
+    <!-- Person to Assign Task -->
+    <label for="person">Person to Assign Task</label>
+    <input type="text" name="entry.983683471" id="person" placeholder="Alfred, Robin..." required>
+    
+    <!-- Task / Activity -->
+    <label for="task">Task / Activity</label>
+    <textarea name="entry.1779811560" id="task" placeholder="Describe the task..." required></textarea>
+    
+    <!-- Submit -->
+    <button type="submit">Assign Task</button>
+  </form>
+
+  <!-- Hidden iframe trick -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <!-- Back to Home -->
+  <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
+
+  <script>
+    let submitted = false;
+    const form = document.querySelector('form');
+    const iframe = document.getElementById('hidden_iframe');
+
+    form.addEventListener('submit', () => { submitted = true; });
+
+    iframe.addEventListener('load', () => {
+      if(submitted){
+        submitted = false;
+        alert('✅ Task assigned successfully!');
+        window.location.href = 'index.html'; // Redirect to main page
+      }
+    });
+  </script>
+
+</body>
+</html>
