@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Photos - Batman Freshers Night</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #000000, #111111);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: yellow;
+      margin: 20px 0;
+      text-shadow: 2px 2px 8px black;
+    }
+    p.lead {
+      color: #d1d1d1;
+      margin-bottom: 18px;
+    }
+    .card {
+      background: rgba(30,30,30,0.95);
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 0 20px yellow;
+      width: 100%;
+      max-width: 800px;
+    }
+    .btn {
+      background: yellow;
+      color: black;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 15px;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: orange;
+      transform: scale(1.05);
+    }
+    .back-link {
+      margin-top: 25px;
+      display: inline-block;
+      color: yellow;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .back-link:hover { color: orange; }
+  </style>
+</head>
+<body>
+
+  <h1>📸 Gotham Photo Booth</h1>
+  <p class="lead">Share your best clicks of the day with Batman!</p>
+
+  <div class="card">
+    <p>Click the button below to open the photo upload form:</p>
+    <!-- Redirect button -->
+    <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdSKQ495WMV0NiwlLSH_QMTBPNXEDeKhtfetVyQqf6Yhh0GnA/viewform" target="_blank" rel="noopener">Upload Photos Now</a>
+  </div>
+
+  <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
+
+</body>
+</html>
