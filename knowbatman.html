@@ -1,54 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Connect with Batman (Rohan)</title>
   <style>
+    :root{
+      --bg:#000;
+      --accent: #ffd400; /* yellow */
+      --accent-hover: #ff9f1a; /* orange */
+      --btn-radius: 10px;
+      --btn-padding: 12px 18px;
+    }
+    *{box-sizing:border-box}
     body {
-      background: black;
-      color: yellow;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px 20px;
+      margin: 0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: var(--bg);
+      color: var(--accent);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      padding: 36px 20px;
     }
-    h1 { font-size: 2.5rem; margin-bottom: 30px; }
-    a {
-      display: block;
-      color: yellow;
+
+    .card{
+      width:100%;
+      max-width:720px;
+      text-align:center;
+    }
+
+    h1{
+      font-size:2rem;
+      margin:0 0 20px 0;
+      letter-spacing:1px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:14px;
+      margin: 18px 0 26px 0;
+    }
+
+    .link-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      background: transparent;
+      color:var(--accent);
+      border: 2px solid var(--accent);
+      padding: var(--btn-padding);
+      border-radius: var(--btn-radius);
       text-decoration: none;
-      font-size: 1.2rem;
-      margin: 10px 0;
-      transition: 0.3s;
-    }
-    a:hover { color: orange; transform: scale(1.05); }
-    .back-btn {
-      margin-top: 30px;
-      padding: 10px 20px;
-      background: yellow;
-      color: black;
-      border: none;
-      border-radius: 6px;
+      font-weight:600;
+      transition:transform .12s ease, background .12s ease, color .12s ease;
       cursor: pointer;
-      transition: 0.3s;
+      user-select:none;
     }
-    .back-btn:hover { background: orange; transform: scale(1.1); }
+
+    .link-btn:hover{ 
+      transform: translateY(-4px) scale(1.02);
+      background: rgba(255,212,0,0.06);
+      color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .link-btn:active{ transform: translateY(-1px); }
+
+    /* small icon circle on left */
+    .icon{
+      width:28px;height:28px;display:inline-grid;place-items:center;border-radius:6px;
+      background:rgba(255,212,0,0.08);font-size:14px;
+    }
+
+    .back-row{ display:flex; gap:12px; align-items:center; justify-content:center; margin-top:6px; }
+
+    .back-btn{
+      margin-top:8px;
+      padding:10px 18px;
+      background:var(--accent);
+      color:#000;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+      transition: transform .12s ease, background .12s ease;
+    }
+    .back-btn:hover{ transform:scale(1.03); background:var(--accent-hover); }
+
+    /* small helper text */
+    .muted{ color:rgba(255,212,0,0.6); font-size:0.9rem; margin-top:8px }
+
+    @media (max-width:420px){
+      .grid{ grid-template-columns:1fr; }
+      h1{ font-size:1.6rem }
+    }
   </style>
 </head>
 <body>
+  <main class="card">
+    <h1>Connect with Batman 🦇</h1>
 
-  <h1>Connect with Batman 🦇</h1>
+    <div class="grid">
+      <a class="link-btn" href="https://www.linkedin.com/in/rohanrdx07deshmukh/" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile">
+        <span class="icon">in</span>
+        LinkedIn
+      </a>
 
-  <a href="https://www.linkedin.com/in/rohanrdx07deshmukh/" target="_blank">LinkedIn</a>
-  <a href="https://www.instagram.com/hackerdx08?igsh=NGI1c2dlNG9mMHR0" target="_blank">Instagram</a>
-  <a href="mailto:rohandeshmukh882002@gmail.com">Gmail</a>
-  <a href="tel:+919529890917">Phone</a>
-  <a href="https://wa.me/qr/WIAZIDZGDUPPL1" target="_blank">WhatsApp</a>
-  <a href="https://medium.com/@rohandeshmukh882002" target="_blank">Medium</a>
-  <a href="https://discord.com/users/rdx04_09553" target="_blank">Discord</a>
-  <a href="https://tryhackme.com/p/hackerdx07" target="_blank">TryHackMe</a>
+      <a class="link-btn" href="https://github.com/gitrohan01" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile">
+        <span class="icon">GH</span>
+        GitHub
+      </a>
+      
+      <a class="link-btn" href="https://www.instagram.com/hackerdx08?igsh=NGI1c2dlNG9mMHR0" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram profile">
+        <span class="icon">IG</span>
+        Instagram
+      </a>
 
-  <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+      <a class="link-btn" href="mailto:rohandeshmukh882002@gmail.com" aria-label="Send email">
+        <span class="icon">@</span>
+        Gmail
+      </a>
 
+      <a class="link-btn" href="tel:+919529890917" aria-label="Call phone number">
+        <span class="icon">📞</span>
+        Phone
+      </a>
+
+      <a class="link-btn" href="https://wa.me/qr/WIAZIDZGDUPPL1" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp chat">
+        <span class="icon">WA</span>
+        WhatsApp
+      </a>
+
+      <a class="link-btn" href="https://medium.com/@rohandeshmukh882002" target="_blank" rel="noopener noreferrer" aria-label="Open Medium profile">
+        <span class="icon">M</span>
+        Medium
+      </a>
+
+      <a class="link-btn" href="https://discord.com/users/rdx04_09553" target="_blank" rel="noopener noreferrer" aria-label="Open Discord profile">
+        <span class="icon">DC</span>
+        Discord
+      </a>
+
+      <a class="link-btn" href="https://tryhackme.com/p/hackerdx07" target="_blank" rel="noopener noreferrer" aria-label="Open TryHackMe profile">
+        <span class="icon">TH</span>
+        TryHackMe
+      </a>
+
+      
+
+    </div>
+
+    <div class="back-row">
+      <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Home</button>
+    </div>
+
+
+  </main>
 </body>
 </html>
