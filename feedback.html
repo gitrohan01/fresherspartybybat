@@ -353,8 +353,9 @@
     </form>
 
 <script>
-  // SAFETY SCRIPT: Fixes browser issues where 'required' on hidden radio buttons fails validation.
   document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // ⛔ stop Google’s default redirect
+
     // List of all radio group names to check for selection
     const radioGroups = [
       'entry.1537691585', 'entry.660725146', 'entry.1238068309', 
@@ -374,18 +375,25 @@
       
       const firstInput = inputs[0]; 
       if (isChecked && firstInput) {
-         // Temporarily disable the browser's required validation on the hidden input 
          firstInput.removeAttribute('required');
-         // Re-add required attribute after a short delay for future submissions
          setTimeout(() => firstInput.setAttribute('required', 'required'), 100);
       }
     }
 
-    // ✅ Show confirmation alert before redirect
-    alert("🎉 Thank you for your feedback!");
-    // After clicking OK, the browser will continue to Google Form's default redirect page
+    // ✅ Submit form data manually
+    fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this),
+      mode: 'no-cors' // required for Google Forms
+    }).then(() => {
+      alert("🎉 Thank you for your feedback!");
+      window.location.href = "index.html"; // ✅ redirect to your page
+    }).catch(() => {
+      alert("⚠️ Something went wrong. Please try again.");
+    });
   });
 </script>
+
 
   </div>
 </body>
