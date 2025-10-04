@@ -126,44 +126,42 @@
   <!-- Back to Home -->
   <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
 
- <script>
-  const form = document.getElementById('confessionForm');
+<script>
+  const form = document.querySelector('form');
   const iframe = document.getElementById('hidden_iframe');
 
+  let submitted = false;
+
   form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop default submission
+
     const name = document.getElementById('name').value.trim();
     const confession = document.getElementById('confession').value.trim();
     const gmail = document.getElementById('gmail').value.trim();
 
-    // Check required fields manually
     if (!name) {
       alert("⚠️ Please enter your name!");
-      event.preventDefault(); // Stop form submission
-      return false;
+      return;
     }
+
     if (!confession) {
       alert("⚠️ Please write your confession!");
-      event.preventDefault();
-      return false;
+      return;
     }
+
     if (!gmail) {
       alert("⚠️ Please enter your Gmail!");
-      event.preventDefault();
-      return false;
+      return;
     }
 
-    // All required fields are filled
-    // Submit via hidden iframe
-    event.preventDefault(); // Stop default submission
+    // All validations passed — submit via hidden iframe
     submitted = true;
 
-    // Create temporary form submission
     const tempForm = document.createElement('form');
     tempForm.action = form.action;
     tempForm.method = 'POST';
     tempForm.target = 'hidden_iframe';
-    
-    // Copy inputs
+
     [...form.elements].forEach(el => {
       if (el.name) {
         const input = document.createElement('input');
@@ -179,7 +177,6 @@
     document.body.removeChild(tempForm);
   });
 
-  let submitted = false;
   iframe.addEventListener('load', function() {
     if (submitted) {
       submitted = false;
@@ -188,6 +185,7 @@
     }
   });
 </script>
+
 
 
 </body>
