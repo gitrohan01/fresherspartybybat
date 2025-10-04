@@ -100,19 +100,20 @@
   <p>“What happens in Gotham… stays in Gotham.”</p>
 
   <!-- Google Form Action -->
-  <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdbaLVa1M1ECBN_mG4aNLz3Yh-_En5TAhmwbmEJPx9zHg3fHA/formResponse" 
-        method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+  <form id="confessionForm" 
+        action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdbaLVa1M1ECBN_mG4aNLz3Yh-_En5TAhmwbmEJPx9zHg3fHA/formResponse" 
+        method="POST" target="hidden_iframe">
 
-    <!-- Name Field (Optional) -->
-    <label for="name">Your Name </label>
-    <input type="text" name="entry.1805215438" id="name" placeholder="Stay anonymous if you wish...">
+    <!-- Name Field (Required Now) -->
+    <label for="name">Your Name *</label>
+    <input type="text" name="entry.1805215438" id="name" placeholder="Stay anonymous if you wish..." required>
 
     <!-- Confession Field -->
-    <label for="confession">Your Confession</label>
+    <label for="confession">Your Confession *</label>
     <textarea name="entry.1196192086" id="confession" placeholder="Spill your secret..." required></textarea>
 
     <!-- Gmail Field -->
-    <label for="gmail">Your Gmail</label>
+    <label for="gmail">Your Gmail *</label>
     <input type="email" name="entry.688928854" id="gmail" placeholder="example@gmail.com" required>
 
     <!-- Submit -->
@@ -126,15 +127,22 @@
   <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
 
   <script>
-    let submitted = false;
-    const form = document.querySelector('form');
+    const form = document.getElementById('confessionForm');
     const iframe = document.getElementById('hidden_iframe');
+    let submitted = false;
 
-    form.addEventListener('submit', () => {
+    form.addEventListener('submit', function(event) {
+      // Extra validation: Ensure name is filled
+      const name = document.getElementById('name').value.trim();
+      if (!name) {
+        alert("⚠️ Please enter your name before submitting!");
+        event.preventDefault();
+        return false;
+      }
       submitted = true;
     });
 
-    iframe.addEventListener('load', () => {
+    iframe.addEventListener('load', function() {
       if (submitted) {
         submitted = false;
         alert('✅ Your Confession was submitted — Batman keeps your secret safe!');
