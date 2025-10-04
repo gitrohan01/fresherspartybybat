@@ -72,54 +72,85 @@
       gap: 5px;
       margin-bottom: 12px;
       padding: 10px 0; 
+      justify-content: flex-start;
     }
     .bat-rating input, .linear-bat-rating input {
       display: none; /* Hide the native radio button */
     }
+
+    /* Styles for the inner label content (bat symbol + text/number) */
     .bat-rating label, .linear-bat-rating label {
       cursor: pointer;
-      font-size: 2.5rem; 
-      color: #555; /* Default dim color */
-      transition: color 0.3s, text-shadow 0.3s, transform 0.1s;
       line-height: 1;
       margin: 0;
-      padding: 0 5px;
+      padding: 5px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: color 0.3s, text-shadow 0.3s, transform 0.1s;
+    }
+    
+    .bat-symbol {
+      font-size: 2.5rem; 
+      color: #555; /* Default dim color */
+    }
+    .bat-number {
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #777; /* Default dim number color */
+      margin-top: 4px;
     }
 
+
     /* --- CUMULATIVE (Rating 3, 5, 6, 7, 8, 9, 12) --- */
+    /* Only the radio button order is reversed, the container stays LTR */
     .bat-rating {
-      flex-direction: row-reverse; /* Reverses order for fill effect */
-      justify-content: flex-start; 
+      flex-direction: row-reverse; 
     }
     /* Cumulative Hover and Checked Effects */
-    .bat-rating label:hover,
-    .bat-rating label:hover ~ label,
-    .bat-rating input:checked ~ label,
-    .bat-rating input:checked + label {
+    .bat-rating input:checked ~ label .bat-symbol,
+    .bat-rating input:checked + label .bat-symbol,
+    .bat-rating label:hover .bat-symbol,
+    .bat-rating label:hover ~ label .bat-symbol {
       color: yellow;
       text-shadow: 0 0 10px yellow;
       transform: scale(1.05);
+    }
+    .bat-rating input:checked ~ label .bat-number,
+    .bat-rating input:checked + label .bat-number,
+    .bat-rating label:hover .bat-number,
+    .bat-rating label:hover ~ label .bat-number {
+      color: yellow;
     }
 
     /* --- LINEAR SCALE (Rating 10, 11) --- */
     .linear-bat-rating {
       flex-direction: row; /* Default order 1-5 */
-      justify-content: flex-start;
     }
     /* Linear Hover and Checked Effects: ONLY the element is styled */
-    .linear-bat-rating label:hover,
-    .linear-bat-rating input:checked + label {
+    .linear-bat-rating input:checked + label .bat-symbol,
+    .linear-bat-rating label:hover .bat-symbol {
       color: yellow;
       text-shadow: 0 0 10px yellow;
       transform: scale(1.05);
     }
+    .linear-bat-rating input:checked + label .bat-number,
+    .linear-bat-rating label:hover .bat-number {
+      color: yellow;
+    }
+
     /* Crucial override: Ensure siblings DO NOT light up */
-    .linear-bat-rating input:checked ~ label,
-    .linear-bat-rating label:hover ~ label {
+    .linear-bat-rating input:checked ~ label .bat-symbol,
+    .linear-bat-rating label:hover ~ label .bat-symbol {
       color: #555;
       text-shadow: none;
       transform: none;
     }
+    .linear-bat-rating input:checked ~ label .bat-number,
+    .linear-bat-rating label:hover ~ label .bat-number {
+      color: #777;
+    }
+
 
     /* Submit Button */
     button {
@@ -147,7 +178,6 @@
 <body>
   <div class="feedback">
     <h1>🦇 Freshers’ Party Feedback</h1>
-    <!-- Action URL remains the same -->
     <form id="feedbackForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdNFPgCvOiKQk2ey9rJcDiMW8wptSKxgt064Dcd0WxeJbSTDg/formResponse" method="POST" target="_self">
 
       <!-- Q1: Name (entry.812857308) -->
@@ -162,18 +192,18 @@
       <label>3. How was the event overall? (Rate 1–5) *</label>
       <div class="bat-rating">
         <input type="radio" id="q3_r5" name="entry.2049361001" value="5" required>
-        <label for="q3_r5">🦇</label>
+        <label for="q3_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q3_r4" name="entry.2049361001" value="4">
-        <label for="q3_r4">🦇</label>
+        <label for="q3_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q3_r3" name="entry.2049361001" value="3">
-        <label for="q3_r3">🦇</label>
+        <label for="q3_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q3_r2" name="entry.2049361001" value="2">
-        <label for="q3_r2">🦇</label>
+        <label for="q3_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q3_r1" name="entry.2049361001" value="1">
-        <label for="q3_r1">🦇</label>
+        <label for="q3_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
-      <!-- Q4: Attracted Most (entry.1166875243) -->
+      <!-- Q4: Attracted Most (entry.1166875243) - TEXT AREA -->
       <label for="attracted-most">4. Which things (games, website, anchoring, food, decoration) attracted you most? *</label>
       <textarea id="attracted-most" name="entry.1166875243" rows="4" required></textarea>
 
@@ -181,127 +211,127 @@
       <label>5. How was the food? (Rate 1–5) *</label>
       <div class="bat-rating">
         <input type="radio" id="q5_r5" name="entry.155491152" value="5" required>
-        <label for="q5_r5">🦇</label>
+        <label for="q5_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q5_r4" name="entry.155491152" value="4">
-        <label for="q5_r4">🦇</label>
+        <label for="q5_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q5_r3" name="entry.155491152" value="3">
-        <label for="q5_r3">🦇</label>
+        <label for="q5_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q5_r2" name="entry.155491152" value="2">
-        <label for="q5_r2">🦇</label>
+        <label for="q5_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q5_r1" name="entry.155491152" value="1">
-        <label for="q5_r1">🦇</label>
+        <label for="q5_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q6: Games Rating (entry.382609504) - CUMULATIVE -->
       <label>6. How were the games? *</label>
       <div class="bat-rating">
         <input type="radio" id="q6_r5" name="entry.382609504" value="5" required>
-        <label for="q6_r5">🦇</label>
+        <label for="q6_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q6_r4" name="entry.382609504" value="4">
-        <label for="q6_r4">🦇</label>
+        <label for="q6_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q6_r3" name="entry.382609504" value="3">
-        <label for="q6_r3">🦇</label>
+        <label for="q6_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q6_r2" name="entry.382609504" value="2">
-        <label for="q6_r2">🦇</label>
+        <label for="q6_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q6_r1" name="entry.382609504" value="1">
-        <label for="q6_r1">🦇</label>
+        <label for="q6_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q7: Decoration Rating (entry.770145528) - CUMULATIVE -->
       <label>7. How was the decoration? *</label>
       <div class="bat-rating">
         <input type="radio" id="q7_r5" name="entry.770145528" value="5" required>
-        <label for="q7_r5">🦇</label>
+        <label for="q7_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q7_r4" name="entry.770145528" value="4">
-        <label for="q7_r4">🦇</label>
+        <label for="q7_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q7_r3" name="entry.770145528" value="3">
-        <label for="q7_r3">🦇</label>
+        <label for="q7_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q7_r2" name="entry.770145528" value="2">
-        <label for="q7_r2">🦇</label>
+        <label for="q7_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q7_r1" name="entry.770145528" value="1">
-        <label for="q7_r1">🦇</label>
+        <label for="q7_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q8: Anchoring Rating (entry.1177787146) - CUMULATIVE -->
       <label>8. How was the anchoring? *</label>
       <div class="bat-rating">
         <input type="radio" id="q8_r5" name="entry.1177787146" value="5" required>
-        <label for="q8_r5">🦇</label>
+        <label for="q8_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q8_r4" name="entry.1177787146" value="4">
-        <label for="q8_r4">🦇</label>
+        <label for="q8_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q8_r3" name="entry.1177787146" value="3">
-        <label for="q8_r3">🦇</label>
+        <label for="q8_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q8_r2" name="entry.1177787146" value="2">
-        <label for="q8_r2">🦇</label>
+        <label for="q8_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q8_r1" name="entry.1177787146" value="1">
-        <label for="q8_r1">🦇</label>
+        <label for="q8_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q9: Tech Involvement Rating (entry.842431618) - CUMULATIVE -->
       <label>9. How was the tech involvement in the event? *</label>
       <div class="bat-rating">
         <input type="radio" id="q9_r5" name="entry.842431618" value="5" required>
-        <label for="q9_r5">🦇</label>
+        <label for="q9_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q9_r4" name="entry.842431618" value="4">
-        <label for="q9_r4">🦇</label>
+        <label for="q9_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q9_r3" name="entry.842431618" value="3">
-        <label for="q9_r3">🦇</label>
+        <label for="q9_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q9_r2" name="entry.842431618" value="2">
-        <label for="q9_r2">🦇</label>
+        <label for="q9_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q9_r1" name="entry.842431618" value="1">
-        <label for="q9_r1">🦇</label>
+        <label for="q9_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q10: Seniors Gesture Rating (entry.1705546490) - LINEAR SCALE -->
       <label>10. How was the gesture of seniors towards freshers? *</label>
       <div class="linear-bat-rating">
         <input type="radio" id="q10_r1" name="entry.1705546490" value="1" required>
-        <label for="q10_r1">🦇</label>
+        <label for="q10_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
         <input type="radio" id="q10_r2" name="entry.1705546490" value="2">
-        <label for="q10_r2">🦇</label>
+        <label for="q10_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q10_r3" name="entry.1705546490" value="3">
-        <label for="q10_r3">🦇</label>
+        <label for="q10_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q10_r4" name="entry.1705546490" value="4">
-        <label for="q10_r4">🦇</label>
+        <label for="q10_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q10_r5" name="entry.1705546490" value="5">
-        <label for="q10_r5">🦇</label>
+        <label for="q10_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
       </div>
 
       <!-- Q11: Website Idea Rating (entry.193500337) - LINEAR SCALE -->
       <label>11. How was the idea of the website? *</label>
       <div class="linear-bat-rating">
         <input type="radio" id="q11_r1" name="entry.193500337" value="1" required>
-        <label for="q11_r1">🦇</label>
+        <label for="q11_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
         <input type="radio" id="q11_r2" name="entry.193500337" value="2">
-        <label for="q11_r2">🦇</label>
+        <label for="q11_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q11_r3" name="entry.193500337" value="3">
-        <label for="q11_r3">🦇</label>
+        <label for="q11_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q11_r4" name="entry.193500337" value="4">
-        <label for="q11_r4">🦇</label>
+        <label for="q11_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q11_r5" name="entry.193500337" value="5">
-        <label for="q11_r5">🦇</label>
+        <label for="q11_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
       </div>
 
       <!-- Q12: Website Rate Rating (entry.1135919000) - CUMULATIVE -->
       <label>12. Rate the website *</label>
       <div class="bat-rating">
         <input type="radio" id="q12_r5" name="entry.1135919000" value="5" required>
-        <label for="q12_r5">🦇</label>
+        <label for="q12_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
         <input type="radio" id="q12_r4" name="entry.1135919000" value="4">
-        <label for="q12_r4">🦇</label>
+        <label for="q12_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
         <input type="radio" id="q12_r3" name="entry.1135919000" value="3">
-        <label for="q12_r3">🦇</label>
+        <label for="q12_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
         <input type="radio" id="q12_r2" name="entry.1135919000" value="2">
-        <label for="q12_r2">🦇</label>
+        <label for="q12_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
         <input type="radio" id="q12_r1" name="entry.1135919000" value="1">
-        <label for="q12_r1">🦇</label>
+        <label for="q12_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
       <!-- Q13: Suggestions (entry.1343322736) -->
       <label for="suggestions">13. Suggestions for upcoming events? *</label>
       <textarea id="suggestions" name="entry.1343322736" rows="4" required></textarea>
 
-      <!-- Q14: Dislikes (entry.1674720699) -->
+      <!-- Q14: Dislikes (entry.1674720699) - TEXT AREA -->
       <label for="dislikes">14. Things you didn't like from this event: *</label>
       <textarea id="dislikes" name="entry.1674720699" rows="4" required></textarea>
 
@@ -309,10 +339,9 @@
     </form>
 
     <script>
-      // SAFETY SCRIPT: Fixes common browser issues where required radio buttons 
-      // linked to hidden inputs fail validation on form submission.
+      // SAFETY SCRIPT: Fixes browser issues where 'required' on hidden radio buttons fails validation.
       document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-        // Updated group names to match the non-sentinel IDs from the URL
+        // List of all radio group names
         const radioGroups = [
           'entry.2049361001', 'entry.155491152', 'entry.382609504', 
           'entry.770145528', 'entry.1177787146', 'entry.842431618', 
@@ -331,9 +360,10 @@
           
           const firstInput = inputs[0]; 
           if (isChecked && firstInput) {
-             // Temporarily remove 'required' to prevent browser validation error on hidden inputs
+             // Temporarily disable the browser's required validation on the hidden input 
+             // since a selection was made via the linked label.
              firstInput.removeAttribute('required');
-             // Re-add required attribute after a short delay
+             // Re-add required attribute after a short delay for future submissions
              setTimeout(() => firstInput.setAttribute('required', 'required'), 100);
           }
         }
