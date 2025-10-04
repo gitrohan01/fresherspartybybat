@@ -57,20 +57,22 @@
     .options h2 {
       margin-bottom: 30px;
     }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-    .card {
-      background: #222;
-      padding: 30px;
-      width: 200px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px yellow;
-      transition: 0.3s;
-    }
+   .cards {
+  display: flex;
+  flex-direction: column; /* makes them stack vertically */
+  align-items: center;    /* centers them horizontally */
+  gap: 20px;              /* space between cards */
+}
+.card {
+  background: #222;
+  padding: 30px;
+  width: 250px;           /* fixed width for consistency */
+  border-radius: 12px;
+  box-shadow: 0 0 15px yellow;
+  transition: 0.3s;
+  text-align: center;
+}
+
     .card:hover {
       transform: scale(1.1);
       box-shadow: 0 0 25px orange;
