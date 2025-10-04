@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Feedback - Batman Freshers’ Party</title>
+  <title>Freshers' Party Feedback - Gotham Style</title>
   <style>
+    /* Global Styles */
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif; /* Using a modern font */
+      font-family: 'Inter', sans-serif;
       background: #000;
       color: #fff;
       display: flex;
@@ -15,13 +16,15 @@
       align-items: flex-start;
       min-height: 100vh;
       padding: 40px 10px;
-      background-image: radial-gradient(circle at 50% 10%, rgba(255, 255, 0, 0.1), transparent);
+      /* Subtle radial glow to match the theme */
+      background-image: radial-gradient(circle at 50% 10%, rgba(255, 255, 0, 0.1), transparent 70%);
     }
     .feedback {
       background: #111;
       padding: 30px 25px;
       border-radius: 12px;
-      box-shadow: 0 0 30px rgba(255, 255, 0, 0.6), 0 0 10px rgba(0, 0, 0, 0.8);
+      /* Stronger yellow glow for dramatic effect */
+      box-shadow: 0 0 30px rgba(255, 255, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.9);
       max-width: 700px;
       width: 100%;
       border: 1px solid #333;
@@ -33,6 +36,8 @@
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
       font-size: 2.2rem;
     }
+    
+    /* Form Elements */
     label {
       font-weight: bold;
       display: block;
@@ -63,13 +68,14 @@
       resize: vertical;
     }
     
-    /* --- Bat Rating System Styles --- */
+    /* --- Bat Rating System Styles (FIXED FOR CLICKABILITY) --- */
     .bat-rating {
       display: flex;
-      justify-content: flex-end; /* Align symbols to the right */
+      /* Reverses the order for traditional 5-star rating behavior */
+      flex-direction: row-reverse; 
+      justify-content: flex-end; /* Keeps them aligned left visually */
       gap: 5px;
       margin-bottom: 12px;
-      direction: rtl; /* Key for the hover/selection effect */
     }
     
     .bat-rating input {
@@ -78,32 +84,34 @@
     
     .bat-rating label {
       cursor: pointer;
-      font-size: 2.5rem; /* Large touch target */
+      font-size: 2.5rem; 
       color: #555; /* Dark/dim initial color */
-      filter: grayscale(100%) brightness(0.5);
-      transition: color 0.3s, filter 0.3s, transform 0.1s;
+      transition: color 0.3s, text-shadow 0.3s;
       line-height: 1;
       margin: 0;
       padding: 0 5px;
-      /* Using a CSS variable for the yellow glow color */
-      --glow-color: yellow;
     }
     
-    /* Highlight the hovered symbol and all preceding siblings (due to rtl) */
+    /* Styles for hover and checked state: */
+    /* When a label is hovered, it and all subsequent labels light up */
     .bat-rating label:hover,
     .bat-rating label:hover ~ label {
-      filter: grayscale(0%) brightness(1.2);
-      color: var(--glow-color);
-      text-shadow: 0 0 15px var(--glow-color);
+      color: yellow;
+      text-shadow: 0 0 15px yellow;
     }
     
-    /* Highlight the selected symbol and all preceding siblings */
+    /* When an input is checked, its corresponding label and all subsequent labels light up */
     .bat-rating input:checked ~ label {
-      filter: grayscale(0%) brightness(1.2);
-      color: var(--glow-color);
-      text-shadow: 0 0 15px var(--glow-color);
+      color: yellow;
+      text-shadow: 0 0 15px yellow;
     }
-
+    /* Ensure the checked label itself stays lit after hover leaves */
+    .bat-rating input:checked + label {
+        color: yellow;
+        text-shadow: 0 0 15px yellow;
+    }
+    
+    /* Submit Button */
     button {
       display: block;
       margin: 30px auto 0;
@@ -129,6 +137,7 @@
 <body>
   <div class="feedback">
     <h1>🦇 Freshers’ Party Feedback</h1>
+    <!-- ACTION URL must use /formResponse endpoint -->
     <form action="https://docs.google.com/forms/d/e/1FAIpQLSdNFPgCvOiKQk2ey9rJcDiMW8wptSKxgt064Dcd0WxeJbSTDg/formResponse" method="POST" target="_self">
 
       <!-- Q1: Name -->
@@ -142,6 +151,7 @@
       <!-- Q3: Event Overall Rating (Bat-Rating) -->
       <label>3. How was the event overall? (Rate 1–5) *</label>
       <div class="bat-rating">
+        <!-- Input IDs and Label For attributes ensure clickability -->
         <input type="radio" id="q3_r5" name="entry.2049361001" value="5" required>
         <label for="q3_r5">🦇</label>
         <input type="radio" id="q3_r4" name="entry.2049361001" value="4">
@@ -154,8 +164,8 @@
         <label for="q3_r1">🦇</label>
       </div>
 
-      <!-- Q4: Attracted Most -->
-      <label for="attracted-most">4. Which things attracted you most? *</label>
+      <!-- Q4: Attracted Most (Paragraph) -->
+      <label for="attracted-most">4. Which things (games, website, anchoring, food, decoration) attracted you most? *</label>
       <textarea id="attracted-most" name="entry.1166875243" rows="4" required></textarea>
 
       <!-- Q5: Food Rating (Bat-Rating) -->
@@ -278,12 +288,12 @@
         <label for="q12_r1">🦇</label>
       </div>
 
-      <!-- Q13: Suggestions -->
-      <label for="suggestions">13. Suggestions for upcoming events *</label>
+      <!-- Q13: Suggestions (Paragraph) -->
+      <label for="suggestions">13. Suggestions for upcoming events? *</label>
       <textarea id="suggestions" name="entry.1343322736_sentinel" rows="4" required></textarea>
 
-      <!-- Q14: Dislikes -->
-      <label for="dislikes">14. Things you didn't like from this event *</label>
+      <!-- Q14: Dislikes (Paragraph) -->
+      <label for="dislikes">14. Things you didn't like from this event: *</label>
       <textarea id="dislikes" name="entry.1674720699_sentinel" rows="4" required></textarea>
 
       <button type="submit">Submit Feedback 🦇</button>
