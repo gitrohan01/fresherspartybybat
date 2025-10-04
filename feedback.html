@@ -174,6 +174,15 @@
       transform: scale(1.05);
       box-shadow: 0 6px 15px rgba(255, 165, 0, 0.6);
     }
+    @keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.bat-rating input[value="5"]:checked ~ label .bat-symbol,
+.bat-rating input[value="5"]:checked ~ label .bat-number {
+  animation: blink 0.6s infinite;
+}
   </style>
 </head>
 <body>
@@ -296,36 +305,35 @@
         <label for="q11_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
       </div>
 
-      <!-- Q12: Seniors Gesture Rating (entry.1722107134) - LINEAR SCALE (1=Negative, 5=Positive) -->
-      <label>12. How was the gesture of seniors towards freshers? (1 for negative, 5 for positive) *</label>
-      <div class="linear-bat-rating">
-        <input type="radio" id="q12_r1" name="entry.1722107134" value="1" required>
-        <label for="q12_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
-        <input type="radio" id="q12_r2" name="entry.1722107134" value="2">
-        <label for="q12_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
-        <input type="radio" id="q12_r3" name="entry.1722107134" value="3">
-        <label for="q12_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
-        <input type="radio" id="q12_r4" name="entry.1722107134" value="4">
-        <label for="q12_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
-        <input type="radio" id="q12_r5" name="entry.1722107134" value="5">
-        <label for="q12_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
-      </div>
+     <!-- Q12 -->
+<label>12. How was the gesture of seniors towards freshers? (1 for negative, 5 for positive) *</label>
+<div class="bat-rating">
+  <input type="radio" id="q12_r5" name="entry.1722107134" value="5" required>
+  <label for="q12_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
+  <input type="radio" id="q12_r4" name="entry.1722107134" value="4">
+  <label for="q12_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
+  <input type="radio" id="q12_r3" name="entry.1722107134" value="3">
+  <label for="q12_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
+  <input type="radio" id="q12_r2" name="entry.1722107134" value="2">
+  <label for="q12_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
+  <input type="radio" id="q12_r1" name="entry.1722107134" value="1">
+  <label for="q12_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
+</div>
 
-      <!-- Q13: Website Idea Rating (entry.890995393) - LINEAR SCALE -->
-      <label>13. How was the idea of the website? *</label>
-      <div class="linear-bat-rating">
-        <input type="radio" id="q13_r1" name="entry.890995393" value="1" required>
-        <label for="q13_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
-        <input type="radio" id="q13_r2" name="entry.890995393" value="2">
-        <label for="q13_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
-        <input type="radio" id="q13_r3" name="entry.890995393" value="3">
-        <label for="q13_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
-        <input type="radio" id="q13_r4" name="entry.890995393" value="4">
-        <label for="q13_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
-        <input type="radio" id="q13_r5" name="entry.890995393" value="5">
-        <label for="q13_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
-      </div>
-
+<!-- Q13 -->
+<label>13. How was the idea of the website? *</label>
+<div class="bat-rating">
+  <input type="radio" id="q13_r5" name="entry.890995393" value="5" required>
+  <label for="q13_r5"><span class="bat-symbol">🦇</span><span class="bat-number">5</span></label>
+  <input type="radio" id="q13_r4" name="entry.890995393" value="4">
+  <label for="q13_r4"><span class="bat-symbol">🦇</span><span class="bat-number">4</span></label>
+  <input type="radio" id="q13_r3" name="entry.890995393" value="3">
+  <label for="q13_r3"><span class="bat-symbol">🦇</span><span class="bat-number">3</span></label>
+  <input type="radio" id="q13_r2" name="entry.890995393" value="2">
+  <label for="q13_r2"><span class="bat-symbol">🦇</span><span class="bat-number">2</span></label>
+  <input type="radio" id="q13_r1" name="entry.890995393" value="1">
+  <label for="q13_r1"><span class="bat-symbol">🦇</span><span class="bat-number">1</span></label>
+</div>
       <!-- Q14: Website Rate Rating (entry.1040050328) - CUMULATIVE -->
       <label>14. Rate the website *</label>
       <div class="bat-rating">
@@ -344,36 +352,40 @@
       <button type="submit">Submit Feedback 🦇</button>
     </form>
 
-    <script>
-      // SAFETY SCRIPT: Fixes browser issues where 'required' on hidden radio buttons fails validation.
-      document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-        // List of all radio group names to check for selection
-        const radioGroups = [
-          'entry.1537691585', 'entry.660725146', 'entry.1238068309', 
-          'entry.834199027', 'entry.643653126', 'entry.1776531912', 
-          'entry.1722107134', 'entry.890995393', 'entry.1040050328'
-        ];
+   <script>
+  // SAFETY SCRIPT: Fixes browser issues where 'required' on hidden radio buttons fails validation.
+  document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    // List of all radio group names to check for selection
+    const radioGroups = [
+      'entry.1537691585', 'entry.660725146', 'entry.1238068309', 
+      'entry.834199027', 'entry.643653126', 'entry.1776531912', 
+      'entry.1722107134', 'entry.890995393', 'entry.1040050328'
+    ];
 
-        for (const name of radioGroups) {
-          const inputs = this.querySelectorAll(`input[type="radio"][name="${name}"]`);
-          let isChecked = false;
-          for (const input of inputs) {
-            if (input.checked) {
-              isChecked = true;
-              break;
-            }
-          }
-          
-          const firstInput = inputs[0]; 
-          if (isChecked && firstInput) {
-             // Temporarily disable the browser's required validation on the hidden input 
-             firstInput.removeAttribute('required');
-             // Re-add required attribute after a short delay for future submissions
-             setTimeout(() => firstInput.setAttribute('required', 'required'), 100);
-          }
+    for (const name of radioGroups) {
+      const inputs = this.querySelectorAll(`input[type="radio"][name="${name}"]`);
+      let isChecked = false;
+      for (const input of inputs) {
+        if (input.checked) {
+          isChecked = true;
+          break;
         }
-      });
-    </script>
+      }
+      
+      const firstInput = inputs[0]; 
+      if (isChecked && firstInput) {
+         // Temporarily disable the browser's required validation on the hidden input 
+         firstInput.removeAttribute('required');
+         // Re-add required attribute after a short delay for future submissions
+         setTimeout(() => firstInput.setAttribute('required', 'required'), 100);
+      }
+    }
+
+    // ✅ Show confirmation alert
+    alert("🎉 Thank you for your feedback!");
+  });
+</script>
+
   </div>
 </body>
 </html>
