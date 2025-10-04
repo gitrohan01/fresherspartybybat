@@ -86,24 +86,24 @@
   <p>Stay anonymous or reveal your identity — let Gotham know your secret missions!</p>
 
   <!-- Google Form Action -->
-  <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScfwQ0-1KTSAt1c_jbQBRLAHDGo5vsn3ta8lTTjI7VqWE8WCQ/formResponse" method="POST" target="hidden_iframe" onsubmit="submitted=true;">
+  <form id="taskForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScfwQ0-1KTSAt1c_jbQBRLAHDGo5vsn3ta8lTTjI7VqWE8WCQ/formResponse" method="POST" target="hidden_iframe">
     
     <!-- Name Field -->
-    <label for="name">Your Name </label>
+    <label for="name">Your Name</label>
     <input type="text" name="entry.231234646" id="name" placeholder="Bruce Wayne">
-    
+
     <!-- Gmail Field -->
-    <label for="gmail">Your Gmail </label>
+    <label for="gmail">Your Gmail</label>
     <input type="email" name="entry.1350250307" id="gmail" placeholder="example@gmail.com">
-    
+
     <!-- Person to Assign Task -->
     <label for="person">Person to Assign Task</label>
     <input type="text" name="entry.983683471" id="person" placeholder="Alfred, Robin..." required>
-    
+
     <!-- Task / Activity -->
     <label for="task">Task / Activity</label>
     <textarea name="entry.1779811560" id="task" placeholder="Describe the task..." required></textarea>
-    
+
     <!-- Submit -->
     <button type="submit">Assign Task</button>
   </form>
@@ -113,69 +113,60 @@
 
   <!-- Back to Home -->
   <a href="index.html" class="back-link">⬅️ Back to Main Page</a>
-<script>
-  const form = document.querySelector('form');
-  const iframe = document.getElementById('hidden_iframe');
-  let submitted = false;
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Stop default submission
+  <script>
+    const form = document.getElementById('taskForm');
+    const iframe = document.getElementById('hidden_iframe');
+    let submitted = false;
 
-    const name = document.getElementById('name').value.trim();
-    const gmail = document.getElementById('gmail').value.trim();
-    const person = document.getElementById('person').value.trim();
-    const task = document.getElementById('task').value.trim();
+    form.addEventListener('submit', function(event) {
+      event.preventDefault(); // Stop default submission
 
-    // Validations
-    if (!name) {
-      alert("⚠️ Please enter your name!");
-      return;
-    }
-    if (!gmail) {
-      alert("⚠️ Please enter your Gmail!");
-      return;
-    }
-    if (!person) {
-      alert("⚠️ Please enter the person to assign the task!");
-      return;
-    }
-    if (!task) {
-      alert("⚠️ Please describe the task!");
-      return;
-    }
+      // Trim values
+      const name = document.getElementById('name').value.trim();
+      const gmail = document.getElementById('gmail').value.trim();
+      const person = document.getElementById('person').value.trim();
+      const task = document.getElementById('task').value.trim();
 
-    // All validations passed — submit via hidden iframe
-    submitted = true;
+      // Validate all fields
+      if (!name) { alert("⚠️ Please enter your name!"); return; }
+      if (!gmail) { alert("⚠️ Please enter your Gmail!"); return; }
+      if (!person) { alert("⚠️ Please enter the person to assign the task!"); return; }
+      if (!task) { alert("⚠️ Please describe the task!"); return; }
 
-    const tempForm = document.createElement('form');
-    tempForm.action = form.action;
-    tempForm.method = 'POST';
-    tempForm.target = 'hidden_iframe';
+      // All validations passed
+      submitted = true;
 
-    [...form.elements].forEach(el => {
-      if (el.name) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = el.name;
-        input.value = el.value;
-        tempForm.appendChild(input);
-      }
+      // Create temporary form to submit via iframe
+      const tempForm = document.createElement('form');
+      tempForm.action = form.action;
+      tempForm.method = 'POST';
+      tempForm.target = 'hidden_iframe';
+
+      [...form.elements].forEach(el => {
+        if (el.name && el.value.trim() !== '') {
+          const input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = el.name;
+          input.value = el.value;
+          tempForm.appendChild(input);
+        }
+      });
+
+      document.body.appendChild(tempForm);
+      tempForm.submit();
+      document.body.removeChild(tempForm);
     });
 
-    document.body.appendChild(tempForm);
-    tempForm.submit();
-    document.body.removeChild(tempForm);
-  });
-
-  iframe.addEventListener('load', function() {
-    if (submitted) {
-      submitted = false;
-      alert('✅ Task assigned successfully!');
-      window.location.href = 'index.html'; // Redirect to main page
-    }
-  });
-</script>
-
+    // Handle iframe load after submission
+    iframe.addEventListener('load', function() {
+      if (submitted) {
+        submitted = false;
+        alert('✅ Task assigned successfully!');
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
 
 </body>
 </html>
