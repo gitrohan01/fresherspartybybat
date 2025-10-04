@@ -352,7 +352,7 @@
       <button type="submit">Submit Feedback 🦇</button>
     </form>
 
-   <script>
+<script>
   // SAFETY SCRIPT: Fixes browser issues where 'required' on hidden radio buttons fails validation.
   document.getElementById('feedbackForm').addEventListener('submit', function(event) {
     // List of all radio group names to check for selection
@@ -381,8 +381,9 @@
       }
     }
 
-    // ✅ Show confirmation alert
+    // ✅ Show confirmation alert before redirect
     alert("🎉 Thank you for your feedback!");
+    // After clicking OK, the browser will continue to Google Form's default redirect page
   });
 </script>
 
