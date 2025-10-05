@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -104,17 +104,13 @@
         action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdbaLVa1M1ECBN_mG4aNLz3Yh-_En5TAhmwbmEJPx9zHg3fHA/formResponse" 
         method="POST" target="hidden_iframe">
 
-    <!-- Name Field (Required Now) -->
-    <label for="name">Your Name *</label>
-    <input type="text" name="entry.1805215438" id="name" placeholder="Stay anonymous if you wish..." required>
+    <!-- Name of Person Field (Required) -->
+    <label for="name">Enter the name of the person you want to confess to *</label>
+    <input type="text" name="entry.1805215438" id="name" placeholder="e.g., Rohan" required>
 
     <!-- Confession Field -->
-    <label for="confession">Your Confession *</label>
-    <textarea name="entry.1196192086" id="confession" placeholder="Spill your secret..." required></textarea>
-
-    <!-- Gmail Field -->
-    <label for="gmail">Your Gmail *</label>
-    <input type="email" name="entry.688928854" id="gmail" placeholder="example@gmail.com" required>
+    <label for="confession">Enter your confession *</label>
+    <textarea name="entry.1196192086" id="confession" placeholder="Type your confession here..." required></textarea>
 
     <!-- Submit -->
     <button type="submit">Submit My Confession</button>
@@ -129,18 +125,16 @@
 <script>
   const form = document.querySelector('form');
   const iframe = document.getElementById('hidden_iframe');
-
   let submitted = false;
 
   form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Stop default submission
+    event.preventDefault(); // Prevent page reload
 
     const name = document.getElementById('name').value.trim();
     const confession = document.getElementById('confession').value.trim();
-    const gmail = document.getElementById('gmail').value.trim();
 
     if (!name) {
-      alert("⚠️ Please enter your name!");
+      alert("⚠️ Please enter the name of the person you want to confess to!");
       return;
     }
 
@@ -149,14 +143,8 @@
       return;
     }
 
-    if (!gmail) {
-      alert("⚠️ Please enter your Gmail!");
-      return;
-    }
-
-    // All validations passed — submit via hidden iframe
+    // Prepare a temporary form for hidden submission
     submitted = true;
-
     const tempForm = document.createElement('form');
     tempForm.action = form.action;
     tempForm.method = 'POST';
@@ -180,13 +168,11 @@
   iframe.addEventListener('load', function() {
     if (submitted) {
       submitted = false;
-      alert('✅ Your Confession was submitted — Batman keeps your secret safe!');
+      alert('✅ Your confession was sent anonymously — Batman keeps your secret safe!');
       window.location.href = 'index.html';
     }
   });
 </script>
-
-
 
 </body>
 </html>
